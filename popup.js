@@ -1,6 +1,6 @@
 // Check authentication status
 async function checkAuth() {
-    const { authToken, userEmail } = await chrome.storage.local.get(['authToken', 'userEmail']);
+    const { authToken, userEmail } = await chrome?.storage?.local?.get(['authToken', 'userEmail']);
     if (!authToken) {
         window.location.href = 'auth.html';
         return;
