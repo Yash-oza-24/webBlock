@@ -229,6 +229,89 @@
     ::-webkit-scrollbar-thumb:hover {
       background: var(--text-secondary);
     }
+
+    /* Password Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: var(--card-background);
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+      margin-bottom: 15px;
+    }
+
+    .modal-header h4 {
+      margin: 0;
+      color: var(--text-primary);
+    }
+
+    .modal-body {
+      margin-bottom: 20px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-footer button {
+      margin: 0;
+    }
+
+    .modal-footer .cancel-btn {
+      background-color: var(--text-secondary);
+    }
+
+    .modal-footer .cancel-btn:hover {
+      background-color: #6c7a7d;
+    }
+
+    /* Message Display Styles */
+    .message-display {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--card-background);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1100;
+      text-align: center;
+      min-width: 200px;
+      max-width: 80%;
+    }
+
+    .message-display.error {
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .message-display.success {
+      background-color: #dcfce7;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
   </style>
 </head>
 <body>
@@ -247,6 +330,25 @@
     </div>
   </div>
   
+  <!-- Message Display -->
+  <div id="messageDisplay" class="message-display"></div>
+
+  <!-- Password Verification Modal -->
+  <div id="passwordModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Enter Password</h4>
+      </div>
+      <div class="modal-body">
+        <input type="password" id="passwordInput" placeholder="Enter your password">
+      </div>
+      <div class="modal-footer">
+        <button id="cancelBtn" class="cancel-btn">Cancel</button>
+        <button id="verifyBtn">Verify</button>
+      </div>
+    </div>
+  </div>
+
   <div class="content">
     <div class="input-group">
       <input type="text" id="websiteInput" placeholder="Enter website to block (e.g. chat.openai.com)">

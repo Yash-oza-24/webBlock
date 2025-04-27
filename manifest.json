@@ -10,7 +10,8 @@
   },
   "action": {
     "default_popup": "auth.html",
-    "default_title": "Website Blocker"
+    "default_title": "Website Blocker",
+    "default_icon": "icon.png"
   },
   "background": {
     "service_worker": "rules.js",

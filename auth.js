@@ -21,7 +21,9 @@ let isSignUp = false;
 function togglePasswordVisibility(input, button) {
     const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
     input.setAttribute('type', type);
-    button.textContent = type === 'password' ? '👁️' : '🔒';
+    const img = button.querySelector('img');
+    img.src = type === 'password' ? './eye.png' : './closedeye.png';
+    img.alt = type === 'password' ? 'Show password' : 'Hide password';
 }
 
 togglePassword.addEventListener('click', () => {
@@ -113,21 +115,43 @@ authForm.addEventListener('submit', async (e) => {
         console.log('Server response:', data.token)
         console.log('Server response:', data.user)
 
-        if (data.token && data.user) {
-            // Store the authentication token and user data
-            await chrome?.storage?.local?.set({
-                authToken: data.token,
-                userEmail: data.user.email,
-                userName: data.user.name
-            });
+        if(isSignUp) {
+            // Show success message
+            showSuccess('Registration successful! Redirecting to login...');
             
-            // Redirect to the main extension page
-            window.location.href = 'popup.html';
+            // Clear form
+            authForm.reset();
+            
+            // Switch to login form after a delay
+            setTimeout(() => {
+                isSignUp = false;
+                formTitle.textContent = 'Sign In';
+                formSubtitle.textContent = 'Welcome back! Please enter your details';
+                submitBtn.textContent = 'Sign In';
+                switchFormText.textContent = 'Don\'t have an account?';
+                switchFormLink.textContent = 'Create an account';
+                confirmPasswordGroup.style.display = 'none';
+                nameGroup.style.display = 'none';
+                passwordRequirements.style.display = 'none';
+                errorMessage.style.display = 'none';
+            }, 2000);
         } else {
-            showError('Invalid response from server');
+            if (data.token && data.user) {
+                // Store the authentication token and user data
+                await chrome?.storage?.local?.set({
+                    authToken: data.token,
+                    userEmail: data.user.email,
+                    userName: data.user.name
+                });
+                
+                // Redirect to the main extension page
+                window.location.href = 'popup.html';
+            } else {
+                showError('Invalid response from server');
+            }
         }
     } catch (error) {
-        // showError('An error occurred. Please try again.');
+        showError(error.message || 'An error occurred. Please try again.');
         console.error('Authentication error:', error);
     }
 });
@@ -135,6 +159,13 @@ authForm.addEventListener('submit', async (e) => {
 function showError(message) {
     errorMessage.textContent = message;
     errorMessage.style.display = 'block';
+    errorMessage.className = 'error-message';
+}
+
+function showSuccess(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    errorMessage.className = 'success-message';
 }
 
 // Check if user is already authenticated

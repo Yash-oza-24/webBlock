@@ -143,10 +143,23 @@
 
         .input-with-icon {
             position: relative;
+            width: 100%;
         }
 
         .input-with-icon input {
-            padding-right: 35px;
+            width: 100%;
+            padding: 10px 40px 10px 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
 
         .toggle-password {
@@ -156,13 +169,27 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: var(--text-secondary);
+            padding: 5px;
             cursor: pointer;
-            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
         }
 
         .toggle-password:hover {
-            color: var(--primary-color);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .toggle-password img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            transition: opacity 0.2s ease;
+        }
+
+        .toggle-password:hover img {
+            opacity: 0.8;
         }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
@@ -174,6 +201,26 @@
         * {
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
+        }
+
+        .error-message {
+            color: #dc2626;
+            background-color: #fee2e2;
+            border: 1px solid #fecaca;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .success-message {
+            color: #16a34a;
+            background-color: #dcfce7;
+            border: 1px solid #bbf7d0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
         }
     </style>
 </head>
@@ -200,7 +247,9 @@
                 <label for="password">Password</label>
                 <div class="input-with-icon">
                     <input type="password" id="password" placeholder="Enter your password" required>
-                    <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        <img src="./eye.png" alt="Show password">
+                    </button>
                 </div>
                 <div class="password-requirements" id="passwordRequirements" style="display: none;">
                     Password must be at least 8 characters long
@@ -211,7 +260,9 @@
                 <label for="confirm-password">Confirm Password</label>
                 <div class="input-with-icon">
                     <input type="password" id="confirm-password" placeholder="Confirm your password">
-                    <button type="button" class="toggle-password" id="toggleConfirmPassword">👁️</button>
+                    <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                        <img src="./eye.png" alt="Show password">
+                    </button>
                 </div>
             </div>
 
